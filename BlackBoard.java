@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class BlackBoard {
     private int[] relDistWolf1;
     private int[] relDistWolf2;
-    private boolean isAssigned;
+    private List<int[]> relDistWolves = new ArrayList<>();
+    public static boolean isAssigned = false;
 
     public void setRelDistWolf1(int[] wolf1){
         this.relDistWolf1 = wolf1;
@@ -12,7 +16,7 @@ public class BlackBoard {
     }
 
     public void setIsAssigned(boolean isAssigned){
-        this.isAssigned = isAssigned;
+        isAssigned = isAssigned;
     }
 
     public int[] getRelDistWolf1() {
@@ -23,7 +27,11 @@ public class BlackBoard {
         return relDistWolf2;
     }
 
-    public boolean getIsAssigned() {
-        return isAssigned;
+    public List<int[]> getRelDistWolves(){
+        return relDistWolves;
+    }
+
+    public void setRelDistWolves(List<int[]> relDistWolves) {
+        this.relDistWolves = relDistWolves;
     }
 }
