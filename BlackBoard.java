@@ -15,10 +15,6 @@ public class BlackBoard {
         this.relDistWolf2 = wolf2;
     }
 
-    public void setIsAssigned(boolean isAssigned){
-        isAssigned = isAssigned;
-    }
-
     public int[] getRelDistWolf1() {
         return relDistWolf1;
     }

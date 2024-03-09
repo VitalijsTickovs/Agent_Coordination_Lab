@@ -66,11 +66,11 @@ public class Wolves {
     private void initWolves() {
         // You should put your own wolves in the array here!!
         Wolf[] wolvesPool = new Wolf[5];
-        wolvesPool[0] = new AlphaWolf();
-        wolvesPool[1] = new AlphaWolf();
-        wolvesPool[2] = new AlphaWolf();
-        wolvesPool[3] = new AlphaWolf();
-        wolvesPool[4] = new AlphaWolf();
+        wolvesPool[0] = new AlphaWolfDynamic();
+        wolvesPool[1] = new AlphaWolfDynamic();
+        wolvesPool[2] = new AlphaWolfDynamic();
+        wolvesPool[3] = new AlphaWolfDynamic();
+        wolvesPool[4] = new AlphaWolfDynamic();
 
         // Below code will select three random wolves from the pool.
         // Make the pool as large as you want, but not < numWolves

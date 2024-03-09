@@ -1,22 +1,43 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-public class AlphaWolf implements Wolf{
-    private boolean isLeader = false;
-    private final static BlackBoard blackBoard = new BlackBoard();
+public class AlphaWolfRandom implements Wolf{
+    public boolean isLeader = false;
+    public final static BlackBoard blackBoard = new BlackBoard();
 
-    private int[] searchPrey(List<int[]> preysSight){
-        if(preysSight.isEmpty()){
-        }
-        Random r = new Random();
-        return new int[]{r.nextInt(3)-1, r.nextInt(3)-1};
-//        else
-//            return new int[]{-preysSight.get(0)[0], -preysSight.get(0)[1]};
-    }
-
-    public void findAlpha(){
+    private void findAlpha() {
         if(!BlackBoard.isAssigned){
             this.isLeader = true;
             BlackBoard.isAssigned = true;
+        }
+    }
+
+    private int[] searchPrey(List<int[]> preysSight) {
+        if(preysSight.isEmpty()){
+            Random r = new Random();
+            return new int[]{r.nextInt(3)-1, r.nextInt(3)-1};
+        }else{
+            int[] prey_dist = new int[preysSight.size()];
+            for(int i= 0; i<preysSight.size(); i++){
+                prey_dist[i] = Math.abs(preysSight.get(i)[0]) + Math.abs(preysSight.get(i)[1]);
+            }
+
+            int min_index = -1;
+            int min_distance = 100000;
+            for(int i=0; i<prey_dist.length; i++){
+                if (prey_dist[i] < min_distance){
+                    min_distance = prey_dist[i];
+                    min_index = i;
+                }
+            }
+            int[] next_move = new int[2];
+
+            int[] prey = preysSight.get(min_index);
+            next_move[0] = (prey[0] > 0) ? -1 : (prey[0] < 0) ? 1 : 0;
+            next_move[1] = (prey[1] > 0) ? -1 : (prey[1] < 0) ? 1 : 0;
+
+            return next_move;
         }
     }
 
@@ -35,11 +56,14 @@ public class AlphaWolf implements Wolf{
             return searchPrey(preysSight);
         }else {
             int[] nextMove = new int[2];
+
             List<int[]> relDistWolves = blackBoard.getRelDistWolves();
+
             for (int i = 0; i < wolvesSight.size(); i++) {
                 for (int j = 0; j < relDistWolves.size(); j++) {
                     int[] relDistWolf = relDistWolves.get(j);
                     int[] wolfSight = wolvesSight.get(i);
+
                     if (wolfSight[0] == -relDistWolf[0] && wolfSight[1] == -relDistWolf[1]) {
                         for (int k = 0; k < nextMove.length; k++) {
                             if (wolfSight[k] > 0) {
@@ -54,7 +78,6 @@ public class AlphaWolf implements Wolf{
                     }
                 }
             }
-            System.out.println(Arrays.toString(nextMove));
             return nextMove;
         }
     }
